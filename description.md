@@ -15,3 +15,6 @@ $for\ loop:$
 $\ \ $
 
 where $\mathbf{X}\in \mathbf{R}^{N\times F}$, $\mathbf{X}$ is 
+
+
+

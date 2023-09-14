@@ -1,7 +1,7 @@
 
-# FlowGNN of AGNN
+# TrackGNN
 
-## Algorithm of AGNN
+## Algorithm of TrackGNN
 
 To make AGNN fit the structure of FlowGNN, it is essential to analyze the algorithm. 
 

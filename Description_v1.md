@@ -9,12 +9,12 @@ For one graph $G(V,E)$, suppose the input feature and the node embedding of node
 
 The pseudo codes of TrackGNN can be represented as  
 $\mathbf{h}_ v^0=MLP_ {input}(\mathbf{x}_ v),\ \forall v\in V$  
-$\mathbf{for}\ k=0...(K-1)$  
-$\ \ \ \ e_ {(src,dst)}=MLP_ {edge}\Big(CONCAT(\mathbf{h}_ {src}^k,\mathbf{h}_ {dst}^k)\Big),\ \forall(src,dst)\in E$  
-$\ \ \ \ \mathbf{mi}_ v=\sum_ {u\in SRC(v)}\ \big(e_ {(u,v)}\mathbf{h}_ u^k\big),\ \forall v\in V$  
-$\ \ \ \ \mathbf{mo}_ v=\sum_ {v\in DST(u)}\ \big(e_ {(u,v)}\mathbf{h}_ v^k\big),\ \forall v\in V$  
-$\ \ \ \ \mathbf{h}_ v^{(k+1)}=\mathbf{h}_ v^k+MLP_ {node}\Big(CONCAT(\mathbf{mi}_ v,\mathbf{mo}_ v,\mathbf{h}_ v^k)\Big),\ \forall v\in V$  
-$e_ {(src,dst)}=MLP_ {edge}\Big(CONCAT(\mathbf{h}_ {src}^K,\mathbf{h}_ {dst}^K)\Big),\ \forall(src,dst)\in E$  
+$\mathbf{for}\ k=1...K:$  
+$\ \ \ \ e_ {(src,dst)}^{(k-1)}=MLP_ {edge}\Big(CONCAT(\mathbf{h}_ {src}^{(k-1)},\mathbf{h}_ {dst}^{(k-1)})\Big),\ \forall(src,dst)\in E$  
+$\ \ \ \ \mathbf{mi}_ v^{(k-1)}=\sum_ {u\in SRC(v)}\ \big(e_ {(u,v)}^{(k-1)}\mathbf{h}_ u^{(k-1)}\big),\ \forall v\in V$  
+$\ \ \ \ \mathbf{mo}_ v^{(k-1)}=\sum_ {v\in DST(u)}\ \big(e_ {(u,v)}^{(k-1)}\mathbf{h}_ v^{(k-1)}\big),\ \forall v\in V$  
+$\ \ \ \ \mathbf{h}_ v^k=\mathbf{h}_ v^{(k-1)}+MLP_ {node}\Big(CONCAT(\mathbf{mi}_ v^{(k-1)},\mathbf{mo}_ v^{(k-1)},\mathbf{h}_ v^{(k-1)})\Big),\ \forall v\in V$  
+$e_ {(src,dst)}^K=MLP_ {edge}\Big(CONCAT(\mathbf{h}_ {src}^K,\mathbf{h}_ {dst}^K)\Big),\ \forall(src,dst)\in E$  
 
 Suppose the dimensions of input features and node embeddings are $m$ and $n$ for convenience. The structures of $MLP_ {input}$, $MLP_ {edge}$, and $MLP_ {node}$ are $m\rightarrow n$, $2n\rightarrow n\rightarrow n\rightarrow 1$, and $3n\rightarrow n\rightarrow n\rightarrow n$. 
 
@@ -23,9 +23,18 @@ Suppose the dimensions of input features and node embeddings are $m$ and $n$ for
 ![NE-to-MP](/image/NE-to-MP.png)
 ![MP-to-NE](/image/MP-to-NE.png)
 
-## Implement of TrackGNN 
+Thus, the algorithm can be modified as  
+$\mathbf{for}\ k=0...K:$  
+$\ \ \ \ \mathbf{if}\ it\ is\ the\ first\ iteration:$  
+$\ \ \ \ \ \ \ \ \mathbf{h}_ v^0=MLP_ {input}(\mathbf{x}_ v),\ \forall v\in V$  
+$\ \ \ \ \mathbf{else}:$  
+$\ \ \ \ \ \ \ \ \mathbf{h}_ v^k=\mathbf{h}_ v^{(k-1)}+MLP_ {node}\Big(CONCAT(\mathbf{mi}_ v^{(k-1)},\mathbf{mo}_ v^{(k-1)},\mathbf{h}_ v^{(k-1)})\Big),\ \forall v\in V$  
+$\ \ \ \ e_ {(src,dst)}^k=MLP_ {edge}\Big(CONCAT(\mathbf{h}_ {src}^k,\mathbf{h}_ {dst}^k)\Big),\ \forall(src,dst)\in E$  
+$\ \ \ \ \mathbf{if}\ it\ is\ \mathbf{not}\ the\ last\ iteration:$  
+$\ \ \ \ \ \ \ \ \mathbf{mi}_ v^k=\sum_ {u\in SRC(v)}\ \big(e_ {(u,v)}^k\mathbf{h}_ u^k\big),\ \forall v\in V$  
+$\ \ \ \ \ \ \ \ \mathbf{mo}_ v^k=\sum_ {v\in DST(u)}\ \big(e_ {(u,v)}^k\mathbf{h}_ v^k\big),\ \forall v\in V$  
 
-The 
+The framework of TrackGNN can be divided into four parts - "node embedding", "adapter", "edge embedding", and "message scatter". 
 
 
 

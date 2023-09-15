@@ -23,18 +23,28 @@ Suppose the dimensions of input features and node embeddings are $m$ and $n$ for
 ![NE-to-MP](/image/NE-to-MP.png)
 ![MP-to-NE](/image/MP-to-NE.png)
 
-Thus, the algorithm can be modified as  
+Thus, the algorithm can be modified as below. It can be divided into four parts - "node embedding", "adapter", "edge embedding", and "message scatter".  
 $\mathbf{for}\ k=0...K:$  
-$\ \ \ \ \mathbf{if}\ it\ is\ the\ first\ iteration:$  
-$\ \ \ \ \ \ \ \ \mathbf{h}_ v^0=MLP_ {input}(\mathbf{x}_ v),\ \forall v\in V$  
-$\ \ \ \ \mathbf{else}:$  
-$\ \ \ \ \ \ \ \ \mathbf{h}_ v^k=\mathbf{h}_ v^{(k-1)}+MLP_ {node}\Big(CONCAT(\mathbf{mi}_ v^{(k-1)},\mathbf{mo}_ v^{(k-1)},\mathbf{h}_ v^{(k-1)})\Big),\ \forall v\in V$  
-$\ \ \ \ e_ {(src,dst)}^k=MLP_ {edge}\Big(CONCAT(\mathbf{h}_ {src}^k,\mathbf{h}_ {dst}^k)\Big),\ \forall(src,dst)\in E$  
-$\ \ \ \ \mathbf{if}\ it\ is\ \mathbf{not}\ the\ last\ iteration:$  
-$\ \ \ \ \ \ \ \ \mathbf{mi}_ v^k=\sum_ {u\in SRC(v)}\ \big(e_ {(u,v)}^k\mathbf{h}_ u^k\big),\ \forall v\in V$  
-$\ \ \ \ \ \ \ \ \mathbf{mo}_ v^k=\sum_ {v\in DST(u)}\ \big(e_ {(u,v)}^k\mathbf{h}_ v^k\big),\ \forall v\in V$  
+$\ \ \ \ node\ embedding:$  
+$\ \ \ \ \ \ \ \ \mathbf{if}\ it\ is\ the\ first\ iteration:$  
+$\ \ \ \ \ \ \ \ \ \ \ \ \mathbf{h}_ v^0=MLP_ {input}(\mathbf{x}_ v),\ \forall v\in V$  
+$\ \ \ \ \ \ \ \ \mathbf{else}:$  
+$\ \ \ \ \ \ \ \ \ \ \ \ \mathbf{h}_ v^k=\mathbf{h}_ v^{(k-1)}+MLP_ {node}\Big(CONCAT(\mathbf{mi}_ v^{(k-1)},\mathbf{mo}_ v^{(k-1)},\mathbf{h}_ v^{(k-1)})\Big),\ \forall v\in V$  
+$\ \ \ \ adapter:$  
+$\ \ \ \ \ \ \ \ Receive\ data\ from\ ``node\ embedding"$  
+$\ \ \ \ \ \ \ \ Send\ data\ to\ ``edge\ embedding"$  
+$\ \ \ \ edge\ embedding:$  
+$\ \ \ \ \ \ \ \ e_ {(src,dst)}^k=MLP_ {edge}\Big(CONCAT(\mathbf{h}_ {src}^k,\mathbf{h}_ {dst}^k)\Big),\ \forall(src,dst)\in E$  
+$\ \ \ \ message\ scatter:$  
+$\ \ \ \ \ \ \ \ \mathbf{if}\ it\ is\ \mathbf{not}\ the\ last\ iteration:$  
+$\ \ \ \ \ \ \ \ \ \ \ \ \mathbf{mi}_ v^k=\sum_ {u\in SRC(v)}\ \big(e_ {(u,v)}^k\mathbf{h}_ u^k\big),\ \forall v\in V$  
+$\ \ \ \ \ \ \ \ \ \ \ \ \mathbf{mo}_ v^k=\sum_ {v\in DST(u)}\ \big(e_ {(u,v)}^k\mathbf{h}_ v^k\big),\ \forall v\in V$  
 
-The framework of TrackGNN can be divided into four parts - "node embedding", "adapter", "edge embedding", and "message scatter". 
+## Detailed Implement 
+
+### "Edge Embedding" 
+
+
 
 
 

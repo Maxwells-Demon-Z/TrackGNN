@@ -20,7 +20,7 @@ Suppose the dimensions of input features and node embeddings are $m$ and $n$ for
 
 ## Modify to Fit the Framework of FlowGNN
 
-![ne](/image/NE-to-MP.png)
+![NE-to-MP](/image/NE-to-MP.png)
 
 
 

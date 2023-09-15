@@ -18,10 +18,12 @@ $e_ {(src,dst)}^K=MLP_ {edge}\Big(CONCAT(\mathbf{h}_ {src}^K,\mathbf{h}_ {dst}^K
 
 Suppose the dimensions of input features and node embeddings are $m$ and $n$ for convenience. The structures of $MLP_ {input}$, $MLP_ {edge}$, and $MLP_ {node}$ are $m\rightarrow n$, $2n\rightarrow n\rightarrow n\rightarrow 1$, and $3n\rightarrow n\rightarrow n\rightarrow n$. 
 
-## Modify to Fit the Framework of FlowGNN
+## Modify the Algorithm to Fit the Framework of FlowGNN
 
 ![NE-to-MP](/image/NE-to-MP.png)
 ![MP-to-NE](/image/MP-to-NE.png)
+
+### The Modified Algorithm 
 
 Thus, the algorithm can be modified as below. It can be divided into four parts - "node embedding", "adapter", "edge embedding", and "message scatter".  
 $\mathbf{for}\ k=0...K:$  
@@ -40,9 +42,20 @@ $\ \ \ \ \ \ \ \ \mathbf{if}\ it\ is\ \mathbf{not}\ the\ last\ iteration:$
 $\ \ \ \ \ \ \ \ \ \ \ \ \mathbf{mi}_ v^k=\sum_ {u\in SRC(v)}\ \big(e_ {(u,v)}^k\mathbf{h}_ u^k\big),\ \forall v\in V$  
 $\ \ \ \ \ \ \ \ \ \ \ \ \mathbf{mo}_ v^k=\sum_ {v\in DST(u)}\ \big(e_ {(u,v)}^k\mathbf{h}_ v^k\big),\ \forall v\in V$  
 
+### Global RAMs and Module Interfaces 
+
+Parallelism parameters:  
+$NODE\_UNI\_PARA$
+
+Global RAMs:  
+$msg[]$
+
 ## Detailed Implement 
 
 ### "Edge Embedding" 
+
+
+
 
 
 

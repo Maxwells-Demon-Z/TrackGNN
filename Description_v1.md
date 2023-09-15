@@ -44,11 +44,14 @@ $\ \ \ \ \ \ \ \ \ \ \ \ \mathbf{mo}_ v^k=\sum_ {v\in DST(u)}\ \big(e_ {(u,v)}^k
 
 ### Global RAMs and Module Interfaces 
 
-Parallelism parameters:  
-$NODE\_ UNI\_ PARA$
+Parameters:  
+
+$P{\_}NODE$  
+$P{\_}EDGE$  
+$P{\_}EMB$  
 
 Global RAMs:  
-$msg[]$
+$msg[P{\_}edge][NODE{\_}NUM{\_}MAX][]$
 
 ## Detailed Implement 
 

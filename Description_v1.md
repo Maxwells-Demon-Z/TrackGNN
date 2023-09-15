@@ -31,8 +31,8 @@ $\ \ \ \ \ \ \ \ \ \ \ \ \mathbf{h}_ v^0=MLP_ {input}(\mathbf{x}_ v),\ \forall v
 $\ \ \ \ \ \ \ \ \mathbf{else}:$  
 $\ \ \ \ \ \ \ \ \ \ \ \ \mathbf{h}_ v^k=\mathbf{h}_ v^{(k-1)}+MLP_ {node}\Big(CONCAT(\mathbf{mi}_ v^{(k-1)},\mathbf{mo}_ v^{(k-1)},\mathbf{h}_ v^{(k-1)})\Big),\ \forall v\in V$  
 $\ \ \ \ adapter:$  
-$\ \ \ \ \ \ \ \ Receive\ data\ from\ ``node\ embedding"$  
-$\ \ \ \ \ \ \ \ Send\ data\ to\ ``edge\ embedding"$  
+$\ \ \ \ \ \ \ \ Receive\ data\ from\ "node\ embedding"$  
+$\ \ \ \ \ \ \ \ Send\ data\ to\ "edge\ embedding"$  
 $\ \ \ \ edge\ embedding:$  
 $\ \ \ \ \ \ \ \ e_ {(src,dst)}^k=MLP_ {edge}\Big(CONCAT(\mathbf{h}_ {src}^k,\mathbf{h}_ {dst}^k)\Big),\ \forall(src,dst)\in E$  
 $\ \ \ \ message\ scatter:$  

@@ -45,8 +45,7 @@ $\ \ \ \ \ \ \ \ \ \ \ \ \mathbf{mo}_ v^k=\sum_ {v\in DST(u)}\ \big(e_ {(u,v)}^k
 ### Global RAMs and Module Interfaces 
 
 Parameters:  
-
-$P{\_}NODE$  
+$P\_NODE$  
 $P{\_}EDGE$  
 $P{\_}EMB$  
 

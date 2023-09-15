@@ -8,13 +8,13 @@ Given node features and directed adjacent list of one graph which is generated b
 For one graph $G(V,E)$, suppose the input feature and the node embedding of node $v$ are $\mathbf{x}_v$ and $\mathbf{h}_v$, the attention of directed edge $(src, dst)$ is $e_{(src,dst)}$, the input and output messages of node $v$ are $\mathbf{mi}_v$ and $\mathbf{mo}_v$, and the sets of source and target nodes of node $v$ are $SRC(v)$ and $DST(v)$. 
 
 The pseudo codes of TrackGNN can be represented as  
-$\mathbf{h}_v^0=MLP_{input}(\mathbf{x}_v),\ \forall v\in V$  
+$\mathbf{h}_ v^0=MLP_ {input}(\mathbf{x}_ v),\ \forall v\in V$  
 $\mathbf{for}\ k=0...(K-1)$  
-$\ \ \ \ e_{(src,dst)}=MLP_{edge}\Big(CONCAT(\mathbf{h}_{src}^k,\mathbf{h}_{dst}^k)\Big),\ \forall(src,dst)\in E$  
-$\ \ \ \ \mathbf{mi}_v=\Large\sum\normalsize_{u\in SRC(v)}\ \big(e_{(u,v)}\mathbf{h}_u^k\big),\ \forall v\in V$  
-$\ \ \ \ \mathbf{mo}_v=\Large\sum\normalsize_{v\in DST(u)}\ \big(e_{(u,v)}\mathbf{h}_v^k\big),\ \forall v\in V$  
-$\ \ \ \ \mathbf{h}_v^{(k+1)}=\mathbf{h}_v^k+MLP_{node}\Big(CONCAT(\mathbf{mi}_v,\mathbf{mo}_v,\mathbf{h}_v^k)\Big),\ \forall v\in V$  
-$e_{(src,dst)}=MLP_{edge}\Big(CONCAT(\mathbf{h}_{src}^K,\mathbf{h}_{dst}^K)\Big),\ \forall(src,dst)\in E$  
+$\ \ \ \ e_ {(src,dst)}=MLP_ {edge}\Big(CONCAT(\mathbf{h}_ {src}^k,\mathbf{h}_ {dst}^k)\Big),\ \forall(src,dst)\in E$  
+$\ \ \ \ \mathbf{mi}_ v=\sum_ {u\in SRC(v)}\ \big(e_ {(u,v)}\mathbf{h}_ u^k\big),\ \forall v\in V$  
+$\ \ \ \ \mathbf{mo}_ v=\sum_ {v\in DST(u)}\ \big(e_ {(u,v)}\mathbf{h}_ v^k\big),\ \forall v\in V$  
+$\ \ \ \ \mathbf{h}_ v^{(k+1)}=\mathbf{h}_ v^k+MLP_ {node}\Big(CONCAT(\mathbf{mi}_ v,\mathbf{mo}_ v,\mathbf{h}_ v^k)\Big),\ \forall v\in V$  
+$e_ {(src,dst)}=MLP_ {edge}\Big(CONCAT(\mathbf{h}_ {src}^K,\mathbf{h}_ {dst}^K)\Big),\ \forall(src,dst)\in E$  
 
 Suppose the dimensions of input features and node embeddings are $m$ and $n$. Thus, the input and the output dimensions of $MLP_{input}$, $MLP_{edge}$, and $MLP_{node}$ are $m\rightarrow n$, $2n\rightarrow 1$, and $3n\rightarrow n$. 
 

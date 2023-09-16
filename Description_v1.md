@@ -45,16 +45,24 @@ $\ \ \ \ \ \ \ \ \ \ \ \ \mathbf{mo}_ v^k=\sum_ {v\in DST(u)}\ \big(e_ {(u,v)}^k
 ### Global RAMs and Module Interfaces 
 
 Parameters:  
+$NODE\underline\ NUM\underline\ MAX$  
+$EDGE\underline\ NUM\underline\ MAX$  
+$NODE\underline\ EMB\underline\ DIM$  
 $P\underline\ NODE$  
-$Pedge$  
-$Pemb$  
+$P\underline\ EDGE$  
+$P\underline\ EMB$  
 
 Global RAMs:  
-$msg[Pedge][NODE{\_}NUM{\_}MAX][]$
+$fixed\ mi[P\underline\ EDGE][NODE\underline\ NUM\underline\ MAX][NODE\underline\ EMB\underline\ DIM]$  
+$fixed\ mo[P\underline\ EDGE][NODE\underline\ NUM\underline\ MAX][NODE\underline\ EMB\underline\ DIM]$  
+
 
 ## Detailed Implement 
 
+It is not in the order of dataflow but implementation that this chapter is written.  
+
 ### "Edge Embedding" 
+
 
 
 

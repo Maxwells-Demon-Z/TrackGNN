@@ -1,5 +1,5 @@
 
 # TrackGNN
 
-This is the REPO which contains an enhanced structure to fit the algorithm of TrackGNN.
+This is the REPO of TrackGNN. The open-source codes are in branch 'master'.
 
